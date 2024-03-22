@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96997f89c34cff42ab1a301930c6d03, type: 3}
   m_Name: SweepingBlade
   m_EditorClassIdentifier: 
-  CoolDown: 3
+  CoolDown: 2
   ExecuteTime: 0.25

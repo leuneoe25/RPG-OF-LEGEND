@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LastBreath
   m_EditorClassIdentifier: 
   CoolDown: 30
-  ExecuteTime: 2.2
+  ExecuteTime: 2

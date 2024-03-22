@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindWallObj: {fileID: 6549988288711513569, guid: 1a5ddcac4ef5f2b48bc36b0438910adb, type: 3}
   ObjectholdingTime: 5
-  CoolDown: 25
+  CoolDown: 10
   ExecuteTime: 0.2

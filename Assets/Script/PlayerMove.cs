@@ -9,19 +9,25 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float JumpPower;
     [SerializeField] private PlayerSkillController skillController;
     private Rigidbody2D rigidbody;
+    private Player player;
     float xScale;
     float yScale;
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         skillController = GetComponent<PlayerSkillController>();
+        player = GetComponent<Player>();
         xScale = transform.localScale.x;
         yScale = transform.localScale.y;
     }
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+            rigidbody.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+        }
     }
     void FixedUpdate()
     {
@@ -30,11 +36,8 @@ public class PlayerMove : MonoBehaviour
 
         float x = Input.GetAxisRaw("Horizontal");
 
-        rigidbody.velocity = new Vector2(x * Speed, rigidbody.velocity.y);
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rigidbody.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
-        }
+        rigidbody.velocity = new Vector2(x * player.GetStatus().Speed, rigidbody.velocity.y);
+        
 
 
         if (x > 0)

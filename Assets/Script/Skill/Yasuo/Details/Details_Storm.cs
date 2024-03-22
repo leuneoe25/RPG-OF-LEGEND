@@ -15,7 +15,7 @@ public class Details_Storm : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBody"))
         {
-            Debug.Log("Attack");
+            Debug.Log($"Attack {collision.gameObject.name}");
             
             if(collision.gameObject.GetComponent<PlayerStateController>().GetNowState("공중"))
             {
@@ -23,7 +23,8 @@ public class Details_Storm : MonoBehaviour
             }
             else
             {
-                collision.gameObject.GetComponent<PlayerStateController>().AddState("공중");
+                collision.gameObject.GetComponent<PlayerStateController>().AddState("공중",1.5f);
+                Debug.Log("ADD STATE 공중");
                 StartCoroutine(floating(collision.gameObject));
             }
 

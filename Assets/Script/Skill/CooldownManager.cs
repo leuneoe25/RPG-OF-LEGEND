@@ -30,12 +30,16 @@ public class CooldownManager : MonoBehaviour
     public List<string> coldownSkill = new List<string>();
     [Header("Skill Icon")]
     [SerializeField] private Image U_Image;
+    [SerializeField] private Image U_CoolTime_Image;
     [SerializeField] private Text U_Text;
     [SerializeField] private Image I_Image;
+    [SerializeField] private Image I_CoolTime_Image;
     [SerializeField] private Text I_Text;
     [SerializeField] private Image O_Image;
+    [SerializeField] private Image O_CoolTime_Image;
     [SerializeField] private Text O_Text;
     [SerializeField] private Image P_Image;
+    [SerializeField] private Image P_CoolTime_Image;
     [SerializeField] private Text P_Text;
 
     [Header("Skill Execute")]
@@ -75,20 +79,20 @@ public class CooldownManager : MonoBehaviour
         {
             case SkillType.U:
                 
-                StartCoroutine(AddExecuteTime(U_Image, U_Text, ExecuteTime, Cooldown, Skillname));
+                StartCoroutine(AddExecuteTime(U_Image, U_CoolTime_Image, U_Text, ExecuteTime, Cooldown, Skillname));
                 break;
             case SkillType.I:
-                StartCoroutine(AddExecuteTime(I_Image, I_Text, ExecuteTime, Cooldown, Skillname));
+                StartCoroutine(AddExecuteTime(I_Image, I_CoolTime_Image, I_Text, ExecuteTime, Cooldown, Skillname));
                 break;
             case SkillType.O:
-                StartCoroutine(AddExecuteTime(O_Image, O_Text, ExecuteTime, Cooldown, Skillname));
+                StartCoroutine(AddExecuteTime(O_Image, O_CoolTime_Image, O_Text, ExecuteTime, Cooldown, Skillname));
                 break;
             case SkillType.P:
-                StartCoroutine(AddExecuteTime(P_Image, P_Text, ExecuteTime, Cooldown, Skillname));
+                StartCoroutine(AddExecuteTime(P_Image, P_CoolTime_Image, P_Text, ExecuteTime, Cooldown, Skillname));
                 break;
         }
     }
-    IEnumerator AddExecuteTime(Image ui,Text text, float ExecuteTime, float Cooldown,string Skillname)
+    IEnumerator AddExecuteTime(Image ui,Image CoolTime,Text text, float ExecuteTime, float Cooldown,string Skillname)
     {
         
 
@@ -103,10 +107,13 @@ public class CooldownManager : MonoBehaviour
         skillController.IsExecuteSkill = false;
         barObj.SetActive(false);
 
-        ui.fillAmount = 0;
+        ui.gameObject.SetActive(false);
+
+        CoolTime.fillAmount = 0;
         StartCoroutine(CoolDownText(text, Cooldown));
-        ui.DOFillAmount(1, Cooldown).OnComplete(() =>
+        CoolTime.DOFillAmount(1, Cooldown).OnComplete(() =>
         {
+            ui.gameObject.SetActive(true);
             coldownSkill.Remove(Skillname);
         });
 
@@ -119,7 +126,7 @@ public class CooldownManager : MonoBehaviour
         for (int i = 0; i < c; i++)
         {
             if(now >= 1)
-                text.text = now.ToString("#.#");
+                text.text = now.ToString("#");
             else
                 text.text = "0"+now.ToString("#.#");
             now -= 0.1f;

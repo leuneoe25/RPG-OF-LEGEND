@@ -56,11 +56,11 @@ public class SteelTempest : Skill
             {
 
                 if (!myObj.GetComponent<PlayerStateController>().GetNowState("ÁßÃ¸"))
-                    myObj.GetComponent<PlayerStateController>().AddState("ÁßÃ¸");
+                    myObj.GetComponent<PlayerStateController>().AddState("ÁßÃ¸",5);
                 else
                 {
                     myObj.GetComponent<PlayerStateController>().RemoveState("ÁßÃ¸");
-                    myObj.GetComponent<PlayerStateController>().AddState("È¸¿À¸®");
+                    myObj.GetComponent<PlayerStateController>().AddState("È¸¿À¸®",5);
                     EffectOn(myObj.transform.GetChild(2).gameObject, 0.5f);
                 }
 
@@ -128,11 +128,11 @@ public class SteelTempest : Skill
             {
 
                 if (!myObj.GetComponent<PlayerStateController>().GetNowState("ÁßÃ¸"))
-                    myObj.GetComponent<PlayerStateController>().AddState("ÁßÃ¸");
+                    myObj.GetComponent<PlayerStateController>().AddState("ÁßÃ¸",5);
                 else
                 {
                     myObj.GetComponent<PlayerStateController>().RemoveState("ÁßÃ¸");
-                    myObj.GetComponent<PlayerStateController>().AddState("È¸¿À¸®");
+                    myObj.GetComponent<PlayerStateController>().AddState("È¸¿À¸®",5);
                     EffectOn(myObj.transform.GetChild(2).gameObject, 0.5f);
                 }
             };
