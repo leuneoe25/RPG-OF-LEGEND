@@ -8,6 +8,7 @@ public class LastBreath : Skill
 {
     [SerializeField] private float CoolDown;
     [SerializeField] private float ExecuteTime;
+    [SerializeField] private List<float> EffectDamage;
     private List<GameObject> floatEnemy;
 
     private GameObject effect;
@@ -39,10 +40,12 @@ public class LastBreath : Skill
             CooldownManager.ins.AddCoolDown(SkillType.P, 0, 0, "LastBreath");
             yield break;
         }
+
         CooldownManager.ins.AddCoolDown(SkillType.P, ExecuteTime, CoolDown, "LastBreath");
         Debug.Log("LastBreath");
         foreach (var item in floatEnemy)
         {
+            item.GetComponent<EnemyMove>().CrowdControl(2f);
             DOTween.Kill(item.gameObject.transform);
         }
         myObj.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -53,15 +56,19 @@ public class LastBreath : Skill
         Vector3 pos = floatEnemy[floatEnemy.Count - 1].transform.position;
         myObj.transform.DOMove(new Vector3(pos.x+1.7f, pos.y + 1),0.5f);
         yield return new WaitForSeconds(0.7f);
+
         effect = myObj.transform.GetChild(4).gameObject;
         effect.SetActive(true);
         effect.transform.position = pos;
         for (int i = 0;i<effect.transform.childCount;i++)
         {
+            
             if (i != 0)
                 effect.transform.GetChild(i-1).gameObject.SetActive(false);
             effect.transform.GetChild(i).gameObject.SetActive(true);
 
+            effect.transform.GetChild(i).GetComponent<Details_LastBreath>().Damage
+                = EffectDamage[i] * myObj.GetComponent<Entity>().GetStatus().ADAtk;
             yield return new WaitForSeconds(0.2f);
         }
         effect.transform.GetChild(effect.transform.childCount - 1).gameObject.SetActive(false);
@@ -69,7 +76,8 @@ public class LastBreath : Skill
         myObj.GetComponent<Rigidbody2D>().gravityScale = 5;
         foreach (var item in floatEnemy)
         {
-            item.GetComponent<Rigidbody2D>().gravityScale = 5;
+            if(item != null)
+                item.GetComponent<Rigidbody2D>().gravityScale = 5;
         }
 
         yield break;

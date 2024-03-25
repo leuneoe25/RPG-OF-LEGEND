@@ -17,8 +17,8 @@ MonoBehaviour:
     HealthRegeneration: 6.5
     ADAtk: 60
     APAtk: 0
-    ADDef: 30
-    APDef: 32
+    ADDef: 7
+    APDef: 8
     Speed: 5
   GrowthStatus:
     Health: 110

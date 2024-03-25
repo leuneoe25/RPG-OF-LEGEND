@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     private Player player;
     float xScale;
     float yScale;
+    private float JumpCount = 2;
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -23,10 +24,22 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
-            rigidbody.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+            if(JumpCount > 1)
+            {
+                rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+                rigidbody.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+                JumpCount--;
+            }
+            
+        }
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.down, 0.4f, LayerMask.GetMask("Ground"));
+        if (hit2D.collider != null)
+        {
+            JumpCount = 2;
         }
     }
     void FixedUpdate()

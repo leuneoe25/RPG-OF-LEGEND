@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e582ce9bf94e1459c565569ef07cf6, type: 3}
   m_Name: LastBreath
   m_EditorClassIdentifier: 
-  CoolDown: 30
+  DamgeRatio: 0
+  CoolDown: 18
   ExecuteTime: 2
+  EffectDamage:
+  - 10
+  - 15
+  - 30

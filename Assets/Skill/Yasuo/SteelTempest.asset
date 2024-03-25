@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada0de1ac7b8db04fa84cd8716893b84, type: 3}
   m_Name: SteelTempest
   m_EditorClassIdentifier: 
+  DamgeRatio: 1
   Storm: {fileID: 1869633595788173634, guid: 5408ab4173bf7fc4194337f1ecb7211c, type: 3}
   CoolDown: 2
   ExecuteTime: 0.4

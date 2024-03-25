@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Skill : ScriptableObject
 {
+    public float DamgeRatio;
     public abstract IEnumerator Execute(GameObject myObj);
     public abstract string CheckExcuteSkill();
     public abstract IEnumerator CheckExecute(GameObject myObj);

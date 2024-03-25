@@ -20,7 +20,7 @@ public class SteelTempest : Skill
         if (myObj.GetComponent<PlayerStateController>().GetNowState("회오리"))
         {
             GameObject g = Instantiate(Storm, myObj.transform.position, Quaternion.identity);
-
+            g.GetComponent<Details_Storm>().Damage = myObj.GetComponent<Entity>().GetStatus().ADAtk * DamgeRatio;
             g.transform.localScale = new Vector3(0, 0, 1);
             if (myObj.transform.localScale.x > 0)
             {
@@ -48,11 +48,16 @@ public class SteelTempest : Skill
             myObj.GetComponent<PlayerStateController>().RemoveState("회오리");
             EffectOff(myObj.transform.GetChild(2).gameObject,0.5f);
             //공격시 일어날 이벤트(ex.데미지 계산)
-            Knife.transform.GetChild(0).GetComponent<Details_SteelTempest>().attackEvent = null;
+            Knife.transform.GetChild(0).GetComponent<Details_SteelTempest>().attackEvent = (Entity en)=>
+            {
+                
+                en.GetDamage(myObj.GetComponent<Entity>().GetStatus().ADAtk * DamgeRatio, myObj);
+                Knife.transform.GetChild(0).GetComponent<Details_SteelTempest>().attackEvent = null;
+            };
         }
         else
         {
-            Knife.transform.GetChild(0).GetComponent<Details_SteelTempest>().attackEvent = () =>
+            Knife.transform.GetChild(0).GetComponent<Details_SteelTempest>().attackEvent = (Entity entity) =>
             {
 
                 if (!myObj.GetComponent<PlayerStateController>().GetNowState("중첩"))
@@ -63,7 +68,7 @@ public class SteelTempest : Skill
                     myObj.GetComponent<PlayerStateController>().AddState("회오리",5);
                     EffectOn(myObj.transform.GetChild(2).gameObject, 0.5f);
                 }
-
+                entity.GetDamage(myObj.GetComponent<Entity>().GetStatus().ADAtk * DamgeRatio, myObj);
                 Knife.transform.GetChild(0).GetComponent<Details_SteelTempest>().attackEvent = null;
             };
         }
@@ -120,11 +125,16 @@ public class SteelTempest : Skill
             myObj.GetComponent<PlayerStateController>().RemoveState("회오리");
             EffectOff(myObj.transform.GetChild(2).gameObject, 0.5f);
             //공격시 일어날 이벤트(ex.데미지 계산)
-            g.GetComponent<Details_SteelTempest>().attackEvent = null;
+            g.GetComponent<Details_SteelTempest>().attackEvent = (Entity en) =>
+            {
+                en.GetDamage(myObj.GetComponent<Entity>().GetStatus().ADAtk * DamgeRatio,myObj);
+
+                g.GetComponent<Details_SteelTempest>().attackEvent = null;
+            };
         }
         else
         {
-            g.GetComponent<Details_SteelTempest>().attackEvent = () =>
+            g.GetComponent<Details_SteelTempest>().attackEvent = (Entity entity) =>
             {
 
                 if (!myObj.GetComponent<PlayerStateController>().GetNowState("중첩"))
@@ -135,6 +145,10 @@ public class SteelTempest : Skill
                     myObj.GetComponent<PlayerStateController>().AddState("회오리",5);
                     EffectOn(myObj.transform.GetChild(2).gameObject, 0.5f);
                 }
+
+                entity.GetDamage(myObj.GetComponent<Entity>().GetStatus().ADAtk * DamgeRatio,myObj);
+
+                g.GetComponent<Details_SteelTempest>().attackEvent = null;
             };
         }
 

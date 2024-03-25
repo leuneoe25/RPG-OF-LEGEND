@@ -15,11 +15,11 @@ MonoBehaviour:
   StartStatus:
     Health: 250
     HealthRegeneration: 0
-    ADAtk: 30
+    ADAtk: 60
     APAtk: 0
     ADDef: 10
     APDef: 15
-    Speed: 4
+    Speed: 2
   GrowthStatus:
     Health: 0
     HealthRegeneration: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public delegate void attackEvent();
+public delegate void attackEvent(Entity entity);
 public class Details_SteelTempest : MonoBehaviour
 {
     public attackEvent attackEvent;
@@ -21,10 +21,9 @@ public class Details_SteelTempest : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBody"))
         {
-            Debug.Log("Attack");
             if(attackEvent!= null)
             {
-                attackEvent();
+                attackEvent(collision.gameObject.GetComponent<Entity>());
             }
         }
     }
